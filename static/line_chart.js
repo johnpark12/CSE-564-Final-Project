@@ -5,16 +5,17 @@ function draw_line_chart(data){
     d3.select('#line_chart').select('svg').remove()
     d3.select('#line_chart').select('svg').remove()
     d3.select('#line_chart').select('svg').remove()
+    d3.select('#line_chart').select('svg').remove()
 
-    for(let a =0; a<3;a++){
+    for(let a =0; a<4;a++){
     var margin = {top: 30, right: 0, bottom: 30, left: 50},
     width = 210 - margin.left - margin.right,
     height = 210 - margin.top - margin.bottom;
 
-    console.log(data)
+    console.log(data.unemploment)
 
     var svg = d3.select("#line_chart")
-    .attr("class","mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid text-aligin--center")
+    .attr("class","mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid text-aligin--center")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -38,6 +39,7 @@ function draw_line_chart(data){
         if(a==0){ return +d.gdp}
         else if(a==1){ return +d.inflation}
         else if (a==2){ return +d.urbanization}
+        else if(a==3){return +d.unemployment}
     })])
     .range([ height, 0 ]);
 
@@ -49,7 +51,7 @@ function draw_line_chart(data){
     svg.append("path")
        .datum(data)
        .attr("fill", "none")
-       .attr("stroke", function(d,i){ return color[0] })
+       .attr("stroke", function(d,i){ return color[a] })
        .attr("stroke-width", 1.9)
        .attr("d", d3.line()
           .x(function(d,i) { return x(d.date); })
@@ -57,11 +59,12 @@ function draw_line_chart(data){
             if(a==0){ return y(d.gdp)}
             else if(a==1){ return y(d.inflation)}
             else if (a==2){ return y(d.urbanization)}
+            else if(a==3){return y(d.unemployment)}
         })
       )
 
   // Add titles
-  var titles = ["GDP","Inflation","Urbanization"]
+  var titles = ["GDP","Inflation","Urbanization","Unemployment"]
   svg.append("text")
   .attr("text-anchor", "start")
   .attr("y", -5)

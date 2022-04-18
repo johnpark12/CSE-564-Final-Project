@@ -15,8 +15,8 @@ d3.csv("static/updated.csv", function(data) {
           date: +d.year,  // using year temporarily will need to change to dates later
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
-          inflation: +d.inflation
-
+          inflation: +d.inflation,
+          unemployment: +d.vulnerableEmployment
         }
       });
     console.log(filtered_data)
