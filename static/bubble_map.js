@@ -5,28 +5,22 @@ var height = 480
 var projection = d3.geoMercator()
     .translate([ width/2, height/2 ])
 
-    let mouseOver = function(d) {
-      d3.selectAll(".Country")
-        .transition()
-        .duration(200)
-        .style("opacity", .5)
-      d3.select(this)
-        .transition()
-        .duration(2)
-        .style("opacity", 1)
-        .style("stroke", "#7967ff")
-    }
-  
-    let mouseLeave = function(d) {
-      d3.selectAll(".Country")
-        .transition()
-        .duration(200)
-        .style("opacity", .8)
-      d3.select(this)
-        .transition()
-        .duration(2)
-        .style("stroke", "#7967ff")
-    }
+var selected_country;
+
+let onClick = function(d) {
+  console.log(d.properties.name)
+  selected_country = d.properties.name
+  d3.selectAll(".Country")
+  .transition()
+  .duration(200)
+  .style("opacity", .5)
+  d3.select(this)
+  .transition()
+  .duration(2)
+  .style("opacity", 1)
+  .style("stroke", "#7967ff")
+  drawLineChart()
+}
 
 
 var svg = d3.select("#bubble_map")
@@ -53,8 +47,7 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
     .style("opacity",0.3)
     .attr("class", function(d){ return "Country" } )
     .style("opacity", .8)
-    .on("mouseover", mouseOver )
-    .on("mouseleave", mouseLeave )
+    .on("click", onClick)
     
 })
 
@@ -66,3 +59,8 @@ var zoom = d3.zoom()
 });
 
 svg.call(zoom);
+
+
+function getSelectedCountry(){
+  return selected_country;
+}

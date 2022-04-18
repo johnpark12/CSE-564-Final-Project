@@ -1,0 +1,27 @@
+
+
+function drawLineChart(){
+
+d3.csv("static/updated.csv", function(data) {
+    console.log(data)
+    var country = getSelectedCountry()
+    var new_data = data.filter(function(d){
+        return d.country == country
+    })
+    console.log(country)
+    console.log(new_data)
+    var filtered_data = new_data.map(function(d) {
+        return {
+          date: +d.year,  // using year temporarily will need to change to dates later
+          gdp: +d.gdppercap,
+          urbanization: +d.urbanpop,
+          inflation: +d.inflation
+
+        }
+      });
+    console.log(filtered_data)
+    draw_line_chart(filtered_data)
+
+})
+
+}
