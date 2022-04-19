@@ -13,6 +13,9 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="{{url_for('static', filename='app.js')}}"></script>
 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'tablesort.css') }}">
+        <script src="{{url_for('static', filename='d3-tablesort.js')}}"></script>
+
     </head>
     <body style="background-color:#dcdff8;">
         <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -28,6 +31,11 @@
         <div class="mdl-grid">
         <div id="bubble_map"></div>
         <div id="line_chart"></div>
+        </div>
+        <div class="mdl-grid">
+        <div class ="mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid text-aligin--center"></div>
+        <div id="table" class = "mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid text-aligin--center">
+        </div>
         </div>
         <script src="{{url_for('static', filename='bubble_map.js')}}"></script>
         <script src="{{url_for('static', filename='line_chart.js')}}"></script>

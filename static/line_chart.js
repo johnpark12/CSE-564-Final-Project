@@ -9,8 +9,8 @@ function draw_line_chart(data){
 
     for(let a =0; a<4;a++){
     var margin = {top: 30, right: 0, bottom: 30, left: 50},
-    width = 210 - margin.left - margin.right,
-    height = 210 - margin.top - margin.bottom;
+    width = 200 - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
 
     console.log(data.unemploment)
 
@@ -35,12 +35,12 @@ function draw_line_chart(data){
 
     //Add Y axis
     var y = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) { 
+    .domain(d3.extent(data, function(d) { 
         if(a==0){ return +d.gdp}
         else if(a==1){ return +d.inflation}
         else if (a==2){ return +d.urbanization}
         else if(a==3){return +d.unemployment}
-    })])
+    }))
     .range([ height, 0 ]);
 
     svg.append("g")

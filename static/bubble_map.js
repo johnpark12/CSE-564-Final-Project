@@ -1,6 +1,6 @@
 
 var width = 900
-var height = 480
+var height = 400
 
 var projection = d3.geoMercator()
     .translate([ width/2, height/2 ])
@@ -19,7 +19,7 @@ let onClick = function(d) {
   .duration(2)
   .style("opacity", 1)
   .style("stroke", "#7967ff")
-  drawLineChart()
+  drawCharts()
 }
 
 

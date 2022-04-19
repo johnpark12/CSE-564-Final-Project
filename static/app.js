@@ -1,6 +1,6 @@
 
 
-function drawLineChart(){
+function drawCharts(){
 
 d3.csv("static/updated.csv", function(data) {
     console.log(data)
@@ -16,12 +16,25 @@ d3.csv("static/updated.csv", function(data) {
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
           inflation: +d.inflation,
-          unemployment: +d.vulnerableEmployment
+          unemployment: +d.vulnerableEmployment,
         }
       });
     console.log(filtered_data)
     draw_line_chart(filtered_data)
 
+    var table_data = []
+    new_data.forEach(function(d, i){
+      table_data.push([d.protesteridentity, d.protesterdemands, d.stateresponses]);  // will have to change this later
+    });
+
+    TableSort(
+      "#table",
+      [{text:"Protestor Identity", sort: TableSort.alphabet}, 
+      {text:"Protester Demand", sort: TableSort.alphabet},
+      {text:"State Response",sort: TableSort.alphabet}],
+      table_data,
+      {width:"500px",height:"300px"}
+      );
 })
 
 }
