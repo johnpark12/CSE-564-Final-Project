@@ -1,6 +1,6 @@
 
 var width = 900
-var height = 400
+var height = 300
 
 var projection = d3.geoMercator()
     .translate([ width/2, height/2 ])

@@ -24,14 +24,14 @@ d3.csv("static/updated.csv", function(data) {
 
     var table_data = []
     new_data.forEach(function(d, i){
-      table_data.push([d.protesteridentity, d.protesterdemands, d.stateresponses]);  // will have to change this later
+      table_data.push([d.notes, d.sources]);  // will have to change this later
     });
 
     TableSort(
       "#table",
-      [{text:"Protestor Identity", sort: TableSort.alphabet}, 
-      {text:"Protester Demand", sort: TableSort.alphabet},
-      {text:"State Response",sort: TableSort.alphabet}],
+      [{text:"Description", sort: TableSort.alphabet}, 
+      {text:"Sources", sort: TableSort.alphabet}
+      ],
       table_data,
       {width:"500px",height:"300px"}
       );
