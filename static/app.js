@@ -8,19 +8,52 @@ d3.csv("static/updated.csv", function(data) {
     var new_data = data.filter(function(d){
         return d.country == country
     })
+
+    var start = getStartTime();
+    var end = getEndTime();
+
+    var new_data_time = new_data.filter(function(d){
+        return (d.year>=start) && (d.year<=end)
+    })
     // console.log(country)
     // console.log(new_data)
-    var filtered_data = new_data.map(function(d) {
+    var filtered_data = new_data_time.map(function(d) {
         return {
           date: +d.year,  // using year temporarily will need to change to dates later
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
           inflation: +d.inflation,
           unemployment: +d.vulnerableEmployment,
+          source: d.sources,
+          note: d.notes
         }
       });
 
-      const violence_data = new Map();
+    console.log(filtered_data)
+
+    draw_line_chart(filtered_data)
+
+    var table_data = []
+    filtered_data.forEach(function(d, i){
+      table_data.push([d.note, d.source]);  
+    });
+
+    TableSort(
+      "#table",
+      [{text:"Description", sort: TableSort.alphabet}, 
+      {text:"Sources", sort: TableSort.alphabet}
+      ],
+      table_data,
+      {width:"500px",height:"300px"}
+      );
+})
+
+}
+
+function drawBarChart(){
+  d3.csv("static/updated.csv", function(data) {
+
+    const violence_data = new Map();
       let max_protest_participants = 0;
       data.forEach(function (d) {
         if (!violence_data.has(d.year)) {
@@ -44,26 +77,11 @@ d3.csv("static/updated.csv", function(data) {
         }
   
       });
-    console.log(getStartTime(),getEndTime())
+   
     draw_stacked_bar_plot(violence_data, max_protest_participants, selected_country);
-  
-    draw_line_chart(filtered_data)
-
-    var table_data = []
-    new_data.forEach(function(d, i){
-      table_data.push([d.notes, d.sources]);  // will have to change this later
-    });
-
-    TableSort(
-      "#table",
-      [{text:"Description", sort: TableSort.alphabet}, 
-      {text:"Sources", sort: TableSort.alphabet}
-      ],
-      table_data,
-      {width:"500px",height:"300px"}
-      );
-})
-
+  })
 }
+
+drawBarChart()
 
 drawCharts()

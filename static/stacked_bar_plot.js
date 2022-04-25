@@ -73,11 +73,9 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
     
     
     function isBrushed(coords, cx) {
-        console.log(coords)
-        console.log(cx)
             var x0 = coords[0][0]-110,
                 x1 = coords[1][0]-110
-        console.log(x0,x1)
+
             if(x0<= cx && cx <= x1){
                 return 1;
             }
@@ -92,7 +90,7 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
         bars.attr("rx",function(d){ 
             var temp = isBrushed(d3.event.selection, x(d.data.year))
             if(temp==1){arr.push(d.data.year)}
-            return 15*temp})
+            return 0})
         console.log(arr)
         drawCharts()
 

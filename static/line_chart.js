@@ -8,7 +8,7 @@ function draw_line_chart(data){
     d3.select('#line_chart').select('svg').remove()
 
     for(let a =0; a<4;a++){
-    var margin = {top: 30, right: 0, bottom: 30, left: 50},
+    var margin = {top: 30, right: 10, bottom: 30, left: 50},
     width = 200 - margin.left - margin.right,
     height = 150 - margin.top - margin.bottom;
 
@@ -44,7 +44,7 @@ function draw_line_chart(data){
     .range([ height, 0 ]);
 
     svg.append("g")
-    .call(d3.axisLeft(y).ticks(8));
+    .call(d3.axisLeft(y).ticks(5));
 
     var color =['#e41a1c','#377eb8','#4daf4a','#ffff33']
 
