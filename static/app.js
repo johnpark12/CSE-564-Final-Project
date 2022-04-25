@@ -44,7 +44,7 @@ d3.csv("static/updated.csv", function(data) {
         }
   
       });
-  
+    console.log(getStartTime(),getEndTime())
     draw_stacked_bar_plot(violence_data, max_protest_participants, selected_country);
   
     draw_line_chart(filtered_data)

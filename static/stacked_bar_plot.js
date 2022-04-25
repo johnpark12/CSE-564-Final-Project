@@ -1,3 +1,6 @@
+var arr = []
+
+
 function draw_stacked_bar_plot(violence_data, max_protest_participants, selected_country) {
 
     d3.select('#stacked_bar_chart').select('svg').remove()
@@ -17,6 +20,7 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .call( d3.brush().extent([[0,0],[1600,90]]).on("end", updateChart) )
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
@@ -51,13 +55,14 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
     console.log(stackedData)
 
 
-    svg.append("g")
+    var groups =svg.append("g")
         .selectAll("g")
         // Enter in the stack data = loop key per key = group per group
         .data(stackedData)
         .enter().append("g")
         .attr("fill", function (d) { return color(d.key); })
-        .selectAll("rect")
+
+    var bars= groups.selectAll("rect")
         // enter a second time = loop subgroup per subgroup to add all rectangles
         .data(function (d) { return d; })
         .enter().append("rect")
@@ -65,4 +70,41 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
         .attr("y", function (d) { return y(d[1]); })
         .attr("height", function (d) { return y(d[0]) - y(d[1]); })
         .attr("width", x.bandwidth())
+    
+    
+    function isBrushed(coords, cx) {
+        console.log(coords)
+        console.log(cx)
+            var x0 = coords[0][0]-110,
+                x1 = coords[1][0]-110
+        console.log(x0,x1)
+            if(x0<= cx && cx <= x1){
+                return 1;
+            }
+           else{
+               return 0;
+           } 
+    }
+
+
+    function updateChart(){
+        arr = []
+        bars.attr("rx",function(d){ 
+            var temp = isBrushed(d3.event.selection, x(d.data.year))
+            if(temp==1){arr.push(d.data.year)}
+            return 15*temp})
+        console.log(arr)
+        drawCharts()
+
+    }
 }
+
+function getStartTime(){
+    return Math.min(...arr)
+}
+
+
+function getEndTime(){
+    return Math.max(...arr)
+}
+
