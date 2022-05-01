@@ -1,11 +1,15 @@
 
+
+var selected_country="";
+
+function geomap(){
 var width = 900
 var height = 300
 
-var projection = d3.geoMercator()
-    .translate([ width/2, height/2 ])
+var projection = d3.geoMercator().translate([ width/2, height/2 ])
 
-var selected_country;
+selected_country = ""
+
 
 let onClick = function(d) {
   console.log(d.properties.name)
@@ -59,8 +63,11 @@ var zoom = d3.zoom()
 });
 
 svg.call(zoom);
-
+}
 
 function getSelectedCountry(){
   return selected_country;
 }
+
+
+geomap()

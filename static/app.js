@@ -5,19 +5,43 @@ function drawCharts(){
 d3.csv("static/updated.csv", function(data) {
     console.log(data)
     var country = getSelectedCountry()
-    var new_data = data.filter(function(d){
-        return d.country == country
-    })
-
     var start = getStartTime();
     var end = getEndTime();
 
-    var new_data_time = new_data.filter(function(d){
+    var new_data;
+
+    //console.log(country)
+    //console.log(isFinite(start))
+
+    if(country=="" && start==Number.NEGATIVE_INFINITY ){
+        //none are selected
+    }
+    else if(country!="" && !isFinite(start)){
+        // only country is selected
+        new_data= data.filter(function(d){
+          return d.country == country
+      })
+    }
+    else if(country=="" && start!=Number.NEGATIVE_INFINITY ){
+        // only time is selected
+        new_data = data.filter(function(d){
+          return (d.year>=start) && (d.year<=end)
+      })
+
+    }
+    else if(country!="" && start!=Number.NEGATIVE_INFINITY ){
+      // both are selected
+      var new_data_country = data.filter(function(d){
+        return d.country == country
+      })
+      new_data = new_data_country.filter(function(d){
         return (d.year>=start) && (d.year<=end)
-    })
+      })
+    }
+
     // console.log(country)
     // console.log(new_data)
-    var filtered_data = new_data_time.map(function(d) {
+    var filtered_data = new_data.map(function(d) {
         return {
           date: +d.year,  // using year temporarily will need to change to dates later
           gdp: +d.gdppercap,
