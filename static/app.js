@@ -1,4 +1,46 @@
 
+function drawMap(){
+  d3.csv("static/updated.csv", function(data) {
+    console.log(data)
+
+    var start = getStartTime();
+    var end = getEndTime();
+
+    if(!isFinite(start)){
+      //none are selected
+      var frequency = {};
+   
+      for(var i = 0; i < data.length; i++){
+      var current = data[i];
+      if(!frequency.hasOwnProperty(current.country)) frequency[current.country] = 0;
+      frequency[current.country]++;
+    }
+      console.log(frequency)
+  
+      geomap(frequency)
+  }
+  else{
+
+    var new_data = data.filter(function(d){
+      return (d.year>=start) && (d.year<=end)
+    })
+
+    var frequency = {};
+   
+    for(var i = 0; i < new_data.length; i++){
+    var current = new_data[i];
+    if(!frequency.hasOwnProperty(current.country)) frequency[current.country] = 0;
+    frequency[current.country]++;
+  }
+    console.log(frequency)
+
+    geomap(frequency)
+
+  }
+
+})
+
+}
 
 function drawCharts(){
 
@@ -10,10 +52,10 @@ d3.csv("static/updated.csv", function(data) {
 
     var new_data;
 
-    //console.log(country)
+    //console.log(start)
     //console.log(isFinite(start))
 
-    if(country=="" && start==Number.NEGATIVE_INFINITY ){
+    if(country=="" && !isFinite(start)){
         //none are selected
     }
     else if(country!="" && !isFinite(start)){
@@ -39,11 +81,9 @@ d3.csv("static/updated.csv", function(data) {
       })
     }
 
-    // console.log(country)
-    // console.log(new_data)
     var filtered_data = new_data.map(function(d) {
         return {
-          date: +d.year,  // using year temporarily will need to change to dates later
+          date: +d.year,  
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
           inflation: +d.inflation,
@@ -105,6 +145,8 @@ function drawBarChart(){
     draw_stacked_bar_plot(violence_data, max_protest_participants, selected_country);
   })
 }
+
+drawMap()
 
 drawBarChart()
 

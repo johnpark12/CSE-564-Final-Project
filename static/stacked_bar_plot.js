@@ -93,6 +93,7 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
             return 0})
         console.log(arr)
         drawCharts()
+        drawMap()
 
     }
 }

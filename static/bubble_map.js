@@ -2,7 +2,10 @@
 
 var selected_country="";
 
-function geomap(){
+function geomap(frequencies){
+
+d3.select('#bubble_map').select('svg').remove()
+
 var width = 900
 var height = 300
 
@@ -17,15 +20,21 @@ let onClick = function(d) {
   d3.selectAll(".Country")
   .transition()
   .duration(200)
-  .style("opacity", .5)
+  .style("fill-opacity", .5)
   d3.select(this)
   .transition()
   .duration(2)
-  .style("opacity", 1)
+  .style("fill-opacity", 1)
   .style("stroke", "#7967ff")
   drawCharts()
 }
 
+const values = Object.values(frequencies);
+
+var colorScale = d3.scaleLinear().domain([Math.min(...values),Math.max(...values)*0.4])
+  .range(["pink", "blue"])
+
+var format = d3.format(",");
 
 var svg = d3.select("#bubble_map")
   .attr("class","mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid text-aligin--center")
@@ -39,12 +48,35 @@ var g = svg.append("g")
  
 d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
 
+  var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([10, 0])
+  .html(function(d) {
+      return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Number of Protests: </strong><span class='details'>" + format(frequencies[d.properties.name]) + "</span>";
+  })
+
+  svg.call(tip);
+
     g.selectAll("path")
     .data(data.features)
     .enter()
     .append("path")
-      .attr("fill", "white")
-      .attr("d", d3.geoPath()
+    .attr("fill", function (d,i) {
+        //console.log(frequencies[d.properties.name])
+
+        if(frequencies[d.properties.name]>=0){
+          d.total= frequencies[d.properties.name]
+          //console.log(d.properties.name,frequencies[d.properties.name])
+          return colorScale(d.total)
+        }
+        else{
+          d.total = 0;
+          return "#ffffff"
+        }
+        
+      })
+
+    .attr("d", d3.geoPath()
           .projection(projection)
       )
     .style("stroke", "#7967ff")
@@ -52,6 +84,20 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
     .attr("class", function(d){ return "Country" } )
     .style("opacity", .8)
     .on("click", onClick)
+
+    .on('mouseover', function(d) {
+      tip.show(d);
+      d3.select(this)
+          .style("stroke-width", 3)
+          .style("stroke","#ff5252");
+  })
+
+  .on('mouseout', function(d) {
+      tip.hide(d);
+      d3.select(this)
+          .style("stroke-width", 1)
+          .style("stroke","#7967ff");
+  });
     
 })
 
@@ -68,6 +114,3 @@ svg.call(zoom);
 function getSelectedCountry(){
   return selected_country;
 }
-
-
-geomap()
