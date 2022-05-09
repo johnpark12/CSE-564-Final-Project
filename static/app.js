@@ -89,7 +89,9 @@ d3.csv("static/updated.csv", function(data) {
           inflation: +d.inflation,
           unemployment: +d.vulnerableEmployment,
           source: d.sources,
-          note: d.notes
+          note: d.notes,
+          demand: d.protesterdemands,
+          response: d.stateresponses
         }
       });
 
@@ -99,13 +101,15 @@ d3.csv("static/updated.csv", function(data) {
 
     var table_data = []
     filtered_data.forEach(function(d, i){
-      table_data.push([d.note, d.source]);  
+      table_data.push([d.note, d.source,d.demand,d.response]);  
     });
 
     TableSort(
       "#table",
       [{text:"Description", sort: TableSort.alphabet}, 
-      {text:"Sources", sort: TableSort.alphabet}
+      {text:"Sources", sort: TableSort.alphabet},
+      {text:"Demands", sort: TableSort.alphabet},
+      {text:"Responses", sort: TableSort.alphabet}
       ],
       table_data,
       {width:"500px",height:"300px"}
