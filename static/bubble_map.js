@@ -89,7 +89,7 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
       tip.show(d);
       d3.select(this)
           .style("stroke-width", 3)
-          .style("stroke","#F4BB44"); //#ff5252
+          .style("stroke","#FFAA33"); //#ff5252
   })
 
   .on('mouseout', function(d) {

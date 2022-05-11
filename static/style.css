@@ -25,8 +25,9 @@ html, body {
   font-weight: 400;
   font-family:"avenir next", Arial, sans-serif;
   padding: 6px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #FFA500;
-  border-radius: 1px;
+  background:#fbfbfb ;
+  color: #341d5c ;
+  border-radius: 15px;
   pointer-events: none;
+  box-shadow: 2px 2px 5px gray;
 }
