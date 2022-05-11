@@ -32,7 +32,7 @@ let onClick = function(d) {
 const values = Object.values(frequencies);
 
 var colorScale = d3.scaleLinear().domain([Math.min(...values),Math.max(...values)*0.4])
-  .range(["pink", "blue"])
+  .range(['#FFB6C1', '#00008B']) // pink,blue
 
 var format = d3.format(",");
 
@@ -89,7 +89,7 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
       tip.show(d);
       d3.select(this)
           .style("stroke-width", 3)
-          .style("stroke","#ff5252");
+          .style("stroke","#F4BB44"); //#ff5252
   })
 
   .on('mouseout', function(d) {

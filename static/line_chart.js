@@ -46,7 +46,7 @@ function draw_line_chart(data){
     svg.append("g")
     .call(d3.axisLeft(y).ticks(5));
 
-    var color =['#e41a1c','#377eb8','#4daf4a','#ffff33']
+    var color =['#e41a1c','#0047AB','#4daf4a','#ffff33']
 
     svg.append("path")
        .datum(data)

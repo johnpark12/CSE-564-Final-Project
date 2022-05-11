@@ -41,7 +41,7 @@ function draw_stacked_bar_plot(violence_data, max_protest_participants, selected
 
     const color = d3.scaleOrdinal()
         .domain(catergories)
-        .range(['#e41a1c', '#4daf4a'])
+        .range(['#FFB6C1', '#0047AB'])   // '#e41a1c', '#4daf4a'
 
     const y = d3.scaleLinear()
         .domain([0, max_protest_participants])
