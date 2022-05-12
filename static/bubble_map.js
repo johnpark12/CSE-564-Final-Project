@@ -20,7 +20,7 @@ let onClick = function(d) {
   d3.selectAll(".Country")
   .transition()
   .duration(200)
-  .style("fill-opacity", .5)
+  .style("fill-opacity", 1)
   d3.select(this)
   .transition()
   .duration(2)
@@ -89,7 +89,7 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
       tip.show(d);
       d3.select(this)
           .style("stroke-width", 3)
-          .style("stroke","#FFAA33"); //#ff5252
+          .style("stroke","#ff5252"); //#ff5252   #FFAA33
   })
 
   .on('mouseout', function(d) {

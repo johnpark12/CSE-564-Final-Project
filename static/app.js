@@ -91,13 +91,19 @@ d3.csv("static/updated.csv", function(data) {
           source: d.sources,
           note: d.notes,
           demand: d.protesterdemands,
-          response: d.stateresponses
+          response: d.stateresponses,
+          identity: d.protesteridentity,
+          country: d.country
         }
       });
 
     console.log(filtered_data)
 
     draw_line_chart(filtered_data)
+
+    makeBubbleChart("bubblechart", country, filtered_data,"identity","#bubblechart")
+    makeBubbleChart("bubblechart", country, filtered_data,"demand","#bubblechart2")
+    makeBubbleChart("bubblechart", country, filtered_data,"response","#bubblechart3")
 
     var table_data = []
     filtered_data.forEach(function(d, i){
