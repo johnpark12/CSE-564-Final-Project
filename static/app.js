@@ -63,6 +63,8 @@ d3.csv("static/updated.csv", function(data) {
         new_data= data.filter(function(d){
           return d.country == country
       })
+      start = 1991
+      end = 2019
     }
     else if(country=="" && start!=Number.NEGATIVE_INFINITY ){
         // only time is selected
@@ -104,6 +106,8 @@ d3.csv("static/updated.csv", function(data) {
     makeBubbleChart("bubblechart", country, filtered_data,"identity","#bubblechart")
     makeBubbleChart("bubblechart", country, filtered_data,"demand","#bubblechart2")
     makeBubbleChart("bubblechart", country, filtered_data,"response","#bubblechart3")
+
+    buildPCPUser(data,country,start,end)
 
     var table_data = []
     filtered_data.forEach(function(d, i){

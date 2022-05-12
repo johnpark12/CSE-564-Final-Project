@@ -26,6 +26,10 @@ let onClick = function(d) {
   .duration(2)
   .style("fill-opacity", 1)
   .style("stroke", "#7967ff")
+  d3.select('#bubblechart').select('svg').remove()
+  d3.select('#bubblechart2').select('svg').remove()
+  d3.select('#bubblechart3').select('svg').remove()
+  d3.select('#pcp').select('svg').remove()
   drawCharts()
 }
 
