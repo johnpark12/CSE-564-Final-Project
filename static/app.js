@@ -89,13 +89,16 @@ d3.csv("static/updated.csv", function(data) {
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
           inflation: +d.inflation,
-          unemployment: +d.vulnerableEmployment,
+          vulnerable: +d.vulnerableEmployment,
           source: d.sources,
           note: d.notes,
           demand: d.protesterdemands,
           response: d.stateresponses,
           identity: d.protesteridentity,
-          country: d.country
+          country: d.country,
+          democracy: d.democracyIndex,
+          salaried: d.salariedEmployment,
+          gdppercap: d.gdppercap
         }
       });
 
