@@ -112,6 +112,7 @@ d3.csv("static/updated.csv", function(data) {
 
     drawBarChart(data, country)
     buildPCPUser(data,country,start,end)
+    //lakdjfldkjf
 
     var table_data = []
     filtered_data.forEach(function(d, i){
