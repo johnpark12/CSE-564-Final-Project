@@ -63,6 +63,8 @@ d3.csv("static/updated.csv", function(data) {
         new_data= data.filter(function(d){
           return d.country == country
       })
+      start = 1991
+      end = 2019
     }
     else if(country=="" && start!=Number.NEGATIVE_INFINITY ){
         // only time is selected
@@ -87,13 +89,16 @@ d3.csv("static/updated.csv", function(data) {
           gdp: +d.gdppercap,
           urbanization: +d.urbanpop,
           inflation: +d.inflation,
-          unemployment: +d.vulnerableEmployment,
+          vulnerable: +d.vulnerableEmployment,
           source: d.sources,
           note: d.notes,
           demand: d.protesterdemands,
           response: d.stateresponses,
           identity: d.protesteridentity,
-          country: d.country
+          country: d.country,
+          democracy: d.democracyIndex,
+          salaried: d.salariedEmployment,
+          gdppercap: d.gdppercap
         }
       });
 
@@ -106,6 +111,7 @@ d3.csv("static/updated.csv", function(data) {
     makeBubbleChart("bubblechart", country, filtered_data,"response","#bubblechart3")
 
     drawBarChart(data, country)
+    buildPCPUser(data,country,start,end)
 
     var table_data = []
     filtered_data.forEach(function(d, i){
